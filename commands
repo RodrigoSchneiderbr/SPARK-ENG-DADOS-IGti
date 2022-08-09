@@ -1,0 +1,13 @@
+particção ano mes dia
+df['anomesdia']=datetime.strftime(datetime.now(),%Y%m%d)
+
+save s3
+import pyarrow as pa
+import pyarrow.parquet as pq
+import s3fs
+import boto3
+
+s3= s3fs.S3FileSystem()
+
+table = pa.Table.fromPandas(df, preserve_index=False)
+pq.write_to_dateset(table,S3_path, filesystem = s3, partition_cols = ['anomesdia]', compression = 'none')
